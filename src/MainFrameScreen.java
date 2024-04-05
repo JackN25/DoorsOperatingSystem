@@ -8,13 +8,15 @@ public class MainFrameScreen extends JFrame implements Runnable {
 
     public MainFrameScreen(String display) {
         super(display);
-        int frameWidth = 500;
-        int frameHeight = 500;
+        int frameWidth = 1920;
+        int frameHeight = 1040;
         appShower = new DrawAppInterface();
         this.add(appShower);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.setUndecorated(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(frameWidth, frameHeight);
-        this.setLocation(600, 100);
+        this.setLocation(0, 0);
         this.setVisible(true);
         startThread();
     }
