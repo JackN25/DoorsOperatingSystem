@@ -12,6 +12,8 @@ public class DrawAppInterface extends JPanel implements MouseListener {
     private JProgressBar progressBar;
     private ProgressBarThread progressBarThread;
     private boolean startup = true;
+    private boolean displayStartupWords = true;
+    private boolean wordsDisplayed = false;
 
 
     public DrawAppInterface() {
@@ -19,15 +21,34 @@ public class DrawAppInterface extends JPanel implements MouseListener {
     }
 
     protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        try {
+            g.drawImage(ImageIO.read(new File("images/blackBackground.jpg")), 0, 0, this);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        //STARTUP DONE
         if (startup) {
             paintStartupScreen(g);
+            progressBar = progressBarThread.getProgressBar();
             if (progressBar.getValue() == 100) {
-                this.remove(progressBar);
                 startup = false;
             }
-        } else {
-            super.paintComponent(g);
+        } else if (displayStartupWords){
+            this.remove(progressBar);
+            g.setColor(Color.WHITE);
+            g.drawString("Open a door to a new world", 450, 500);
+            displayStartupWords = false;
+            wordsDisplayed = true;
+        } else if (wordsDisplayed) {
+            wordsDisplayed = false;
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
+
     }
 
     private void paintStartupScreen(Graphics g)
@@ -42,9 +63,12 @@ public class DrawAppInterface extends JPanel implements MouseListener {
         //g.drawImage(homescreen.getDoorStartup(), x, y, null);
         g.setColor(Color.WHITE);
         g.drawString("DOORS OS", 450, 470);
-        createProgressBar(0, 100, 450 ,500, 100, 20);
-        progressBarThread = new ProgressBarThread(progressBar, "Startup");
-        this.add(progressBar);
+        g.setColor(Color.BLACK);
+        if (progressBar == null) {
+            progressBarThread = new ProgressBarThread(0, 100, 450, 500, 100, 20, "Startup");
+            progressBar = progressBarThread.getProgressBar();
+            this.add(progressBar);
+        }
     }
 
     @Override
@@ -72,11 +96,5 @@ public class DrawAppInterface extends JPanel implements MouseListener {
 
     }
 
-    private void createProgressBar(int min, int max, int x, int y, int width, int height) {
-        progressBar = new JProgressBar(0, 100);
-        progressBar.setBounds(x, y, width, height);
-        progressBar.setStringPainted(false);
-        progressBar.setValue(0);
-    }
 
 }
