@@ -14,6 +14,7 @@ public class DrawAppInterface extends JPanel implements MouseListener {
     private boolean startup = true;
     private boolean displayStartupWords = true;
     private boolean wordsDisplayed = false;
+    private boolean homescreenOn = false;
 
 
     public DrawAppInterface() {
@@ -47,6 +48,28 @@ public class DrawAppInterface extends JPanel implements MouseListener {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
+            homescreenOn = true;
+        } else if (homescreenOn) {
+            int x = 10;
+            int y = 10;
+            for (AppIcon icon : homescreen.getAppIcons()) {
+                if (y < 800) {
+                    if(icon.isHighlighted()) {
+                        g.drawRect(x, y, icon.getIcon().getWidth(), icon.getIcon().getHeight());
+                    }
+                    icon.setIconBoxLocation(x, y);
+                    g.drawImage(icon.getIcon(), x, y, null);
+                    y = y + icon.getIcon().getHeight() + 10;
+                    g.setFont(new Font("Courier New", Font.PLAIN, 9));
+                    g.setColor(Color.WHITE);
+                    g.drawString(icon.getName(), x + icon.getIcon().getWidth()/4, y);
+                    y += 50;
+                }
+                if (y >= 800) {
+                    x += icon.getIcon().getWidth() + 50;
+                    y = 10;
+                }
+            }
         }
 
     }
@@ -78,7 +101,15 @@ public class DrawAppInterface extends JPanel implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
+        Point clicked = e.getPoint();
 
+        if (e.getButton() == 1) {
+            if(homescreenOn) {
+                for (int i = 0; i < homescreen.getAppIcons().size(); i++) {
+                    Rectangle box = homescreen.getAppIcons().get(i).getIconBox();
+                }
+            }
+        }
     }
 
     @Override
@@ -95,6 +126,5 @@ public class DrawAppInterface extends JPanel implements MouseListener {
     public void mouseExited(MouseEvent e) {
 
     }
-
 
 }

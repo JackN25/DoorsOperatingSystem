@@ -6,42 +6,29 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
-public class HomeScreen extends JPanel implements MouseListener {
+public class HomeScreen{
 
-    private BufferedImage doorStartup = readDoorImage();
+    private BufferedImage doorStartup;
+    private ArrayList<AppIcon> apps;
 
     public HomeScreen() {
-        this.addMouseListener(this);
+        doorStartup = readDoorImage();
+        apps = new ArrayList<AppIcon>();
+        apps.add(new AppIcon("calculator"));
+        apps.add(new AppIcon("notepad"));
+        apps.add(new AppIcon("browser"));
+        apps.add(new AppIcon("random1"));
+        apps.add(new AppIcon("random2"));
+        apps.add(new AppIcon("random3"));
+        apps.add(new AppIcon("random4"));
+        apps.add(new AppIcon("random5"));
+        apps.add(new AppIcon("random6"));
+        apps.add(new AppIcon("random7"));
 
     }
 
-
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
 
     public BufferedImage getDoorStartup() {
         return doorStartup;
@@ -57,5 +44,9 @@ public class HomeScreen extends JPanel implements MouseListener {
             System.out.println(e);
             return null;
         }
+    }
+
+    public ArrayList<AppIcon> getAppIcons() {
+        return apps;
     }
 }
