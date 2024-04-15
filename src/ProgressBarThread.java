@@ -19,6 +19,7 @@ public class ProgressBarThread implements Runnable {
 
     @Override
     public void run() {
+        /*
         while (progressBar.getValue() < 100) {
             while (progressBar.getValue() < 20) {
                 progressBar.setValue(progressBar.getValue() + 1);
@@ -29,8 +30,12 @@ public class ProgressBarThread implements Runnable {
                 System.exit(0);
             }
             while (progressBar.getValue() < 70) {
-                progressBar.setValue(progressBar.getValue() + 5);
-
+                progressBar.setValue(progressBar.getValue() + 1);
+                try {
+                    Thread.sleep(10);
+                } catch (Exception e) {
+                    System.exit(0);
+                }
             }
             while (progressBar.getValue()<99) {
                 try {
@@ -41,7 +46,9 @@ public class ProgressBarThread implements Runnable {
                 progressBar.setValue(progressBar.getValue() + 5);
             }
             progressBar.setValue(100);
-        }
+        }*/
+
+        progressBar.setValue(100);
         try {
             Thread.sleep(1000);
         } catch (Exception e){};

@@ -23,13 +23,9 @@ public class DrawAppInterface extends JPanel implements MouseListener {
 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        try {
-            g.drawImage(ImageIO.read(new File("images/blackBackground.jpg")), 0, 0, this);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
         //STARTUP DONE
         if (startup) {
+            this.setBackground(Color.BLACK);
             paintStartupScreen(g);
             progressBar = progressBarThread.getProgressBar();
             if (progressBar.getValue() == 100) {
@@ -79,16 +75,16 @@ public class DrawAppInterface extends JPanel implements MouseListener {
         int x = 950;
         int y = 400;
         try {
-            g.drawImage(ImageIO.read(new File("images/blackBackground.jpg")), 0, 0, this);
+            g.drawImage(ImageIO.read(new File("images/blackBackground.png")), 0, 0, this);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        //g.drawImage(homescreen.getDoorStartup(), x, y, null);
+        g.drawImage(homescreen.getDoorStartup(), x, y, null);
         g.setColor(Color.WHITE);
         g.drawString("DOORS OS", 450, 470);
         g.setColor(Color.BLACK);
         if (progressBar == null) {
-            progressBarThread = new ProgressBarThread(0, 100, 450, 500, 100, 20, "Startup");
+            progressBarThread = new ProgressBarThread(0, 100, 450, 500, 100, 10, "Startup");
             progressBar = progressBarThread.getProgressBar();
             this.add(progressBar);
         }
@@ -106,7 +102,10 @@ public class DrawAppInterface extends JPanel implements MouseListener {
         if (e.getButton() == 1) {
             if(homescreenOn) {
                 for (int i = 0; i < homescreen.getAppIcons().size(); i++) {
-                    Rectangle box = homescreen.getAppIcons().get(i).getIconBox();
+                    Rectangle box = homescreen.getAppIcons().get(i).getBounds();
+                    if (box.contains(clicked)) {
+
+                    }
                 }
             }
         }
