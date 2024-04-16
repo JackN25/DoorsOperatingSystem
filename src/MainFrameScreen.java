@@ -5,16 +5,18 @@ import java.awt.event.MouseListener;
 public class MainFrameScreen extends JFrame implements Runnable {
     private DrawAppInterface appShower;
     private Thread windowThread;
+    private boolean systemOn = true;
 
     public MainFrameScreen(String display) {
         super(display);
-        int frameWidth = 1000;
-        int frameHeight = 1000;
+        int frameWidth = 1920;
+        int frameHeight = 1080;
         appShower = new DrawAppInterface();
         this.add(appShower);
         //force fullscreen
         //this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setResizable(true);
+        //outside border with close, max, and min
         this.setUndecorated(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(frameWidth, frameHeight);
@@ -30,7 +32,7 @@ public class MainFrameScreen extends JFrame implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
+        while (systemOn) {
             appShower.repaint();
         }
     }

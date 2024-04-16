@@ -9,7 +9,7 @@ public class AppIcon {
     private BufferedImage icon;
     private String name;
     private Rectangle bounds;
-    private boolean isHighlighted;
+    private boolean highlighted;
 
     public AppIcon(String name) {
         this.name = name;
@@ -48,6 +48,10 @@ public class AppIcon {
 
 
     public boolean isHighlighted() {
-        return isHighlighted;
+        return highlighted;
+    }
+
+    public void changeHighlighted() {
+        highlighted = !highlighted;
     }
 }

@@ -5,6 +5,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DrawAppInterface extends JPanel implements MouseListener {
 
@@ -15,6 +17,7 @@ public class DrawAppInterface extends JPanel implements MouseListener {
     private boolean displayStartupWords = true;
     private boolean wordsDisplayed = false;
     private boolean homescreenOn = false;
+    Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
 
     public DrawAppInterface() {
@@ -29,6 +32,7 @@ public class DrawAppInterface extends JPanel implements MouseListener {
             paintStartupScreen(g);
             progressBar = progressBarThread.getProgressBar();
             if (progressBar.getValue() == 100) {
+                LOGGER.log(Level.INFO, "Startup finished");
                 startup = false;
             }
         } else if (displayStartupWords){
@@ -44,26 +48,37 @@ public class DrawAppInterface extends JPanel implements MouseListener {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            homescreenOn = true;
+            changeHomeScreenStatus();
         } else if (homescreenOn) {
             int x = 10;
             int y = 10;
+            g.setColor(Color.WHITE);
+            g.fillRect(0, super.getHeight() - 50, super.getWidth(), 50);
+            g.setColor(Color.BLACK);
             for (AppIcon icon : homescreen.getAppIcons()) {
-                if (y < 800) {
-                    if(icon.isHighlighted()) {
-                        g.drawRect(x, y, icon.getIcon().getWidth(), icon.getIcon().getHeight());
+                if (!icon.getName().equals("exit")) {
+                    if (y < super.getHeight() - 200) {
+                        if (icon.isHighlighted()) {
+                            g.setColor(Color.WHITE);
+                            g.drawRect(x, y, icon.getIcon().getWidth(), icon.getIcon().getHeight());
+                            g.setColor(Color.BLACK);
+
+                        }
+                        icon.setIconBoxLocation(x, y);
+                        g.drawImage(icon.getIcon(), x, y, null);
+                        y = y + icon.getIcon().getHeight() + 10;
+                        g.setFont(new Font("Courier New", Font.PLAIN, 9));
+                        g.setColor(Color.WHITE);
+                        g.drawString(icon.getName(), x + icon.getIcon().getWidth() / 4, y);
+                        y += 50;
                     }
-                    icon.setIconBoxLocation(x, y);
-                    g.drawImage(icon.getIcon(), x, y, null);
-                    y = y + icon.getIcon().getHeight() + 10;
-                    g.setFont(new Font("Courier New", Font.PLAIN, 9));
-                    g.setColor(Color.WHITE);
-                    g.drawString(icon.getName(), x + icon.getIcon().getWidth()/4, y);
-                    y += 50;
-                }
-                if (y >= 800) {
-                    x += icon.getIcon().getWidth() + 50;
-                    y = 10;
+                    if (y >= 800) {
+                        x += icon.getIcon().getWidth() + 50;
+                        y = 10;
+                    }
+                } else {
+                    g.drawImage(icon.getIcon(), 0, super.getHeight() - 50, null);
+                    icon.setIconBoxLocation(0, super.getHeight() - 50);
                 }
             }
         }
@@ -100,11 +115,31 @@ public class DrawAppInterface extends JPanel implements MouseListener {
         Point clicked = e.getPoint();
 
         if (e.getButton() == 1) {
+            //ON THE HOME SCREEN
             if(homescreenOn) {
+                //loop through all apps on home screen
                 for (int i = 0; i < homescreen.getAppIcons().size(); i++) {
                     Rectangle box = homescreen.getAppIcons().get(i).getBounds();
-                    if (box.contains(clicked)) {
-
+                    //if app clicked but not highlighted, change the highlight status
+                    if (box.contains(clicked) && !homescreen.getAppIcons().get(i).isHighlighted()) {
+                        homescreen.getAppIcons().get(i).changeHighlighted();
+                    }
+                    //if app clicked is highlighted, change the highlight status, close home screen, open the app
+                    else if (box.contains(clicked) && homescreen.getAppIcons().get(i).isHighlighted()) {
+                        homescreen.getAppIcons().get(i).changeHighlighted();
+                        changeHomeScreenStatus();
+                        String appName = homescreen.getAppIcons().get(i).getName();
+                        if (!appName.equals("exit")) {
+                            LOGGER.log(Level.INFO, appName + " opened");
+                            //TODO: open app
+                        } else {
+                            LOGGER.log(Level.INFO, "User initiated system shutdown");
+                            System.exit(0);
+                        }
+                    }
+                    //if app is not clicked and is highlighted, change highlight status
+                    else if (homescreen.getAppIcons().get(i).isHighlighted()){
+                        homescreen.getAppIcons().get(i).changeHighlighted();
                     }
                 }
             }
@@ -126,4 +161,12 @@ public class DrawAppInterface extends JPanel implements MouseListener {
 
     }
 
+    private void changeHomeScreenStatus() {
+        homescreenOn = !homescreenOn;
+        if (homescreenOn) {
+            LOGGER.log(Level.INFO, "Home screen turned on");
+        } else {
+            LOGGER.log(Level.INFO, "Home screen turned off");
+        }
+    }
 }

@@ -26,6 +26,7 @@ public class HomeScreen{
         apps.add(new AppIcon("random5"));
         apps.add(new AppIcon("random6"));
         apps.add(new AppIcon("random7"));
+        apps.add(new AppIcon("exit"));
 
     }
 
