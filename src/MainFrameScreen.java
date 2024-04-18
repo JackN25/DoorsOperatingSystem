@@ -6,7 +6,6 @@ public class MainFrameScreen extends JFrame implements Runnable {
     private DrawAppInterface appShower;
     private Thread windowThread;
     private boolean systemOn = true;
-
     public MainFrameScreen(String display) {
         super(display);
         int frameWidth = 1920;

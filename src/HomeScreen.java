@@ -16,8 +16,8 @@ public class HomeScreen{
     public HomeScreen() {
         doorStartup = readDoorImage();
         apps = new ArrayList<AppIcon>();
-        apps.add(new AppIcon("calculator"));
-        apps.add(new AppIcon("notepad"));
+        apps.add(new AppIcon("Calculator"));
+        apps.add(new AppIcon("Notes"));
         apps.add(new AppIcon("browser"));
         apps.add(new AppIcon("random1"));
         apps.add(new AppIcon("random2"));

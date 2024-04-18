@@ -17,6 +17,11 @@ public class DrawAppInterface extends JPanel implements MouseListener {
     private boolean displayStartupWords = true;
     private boolean wordsDisplayed = false;
     private boolean homescreenOn = false;
+    private NotesApp notesApp = new NotesApp();
+    private boolean notesOn = false;
+    private boolean calculatorOn = false;
+    private WeatherApp weatherApp = new WeatherApp();
+    private boolean weatherAppOn = false;
     Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
 
@@ -81,8 +86,9 @@ public class DrawAppInterface extends JPanel implements MouseListener {
                     icon.setIconBoxLocation(0, super.getHeight() - 50);
                 }
             }
-        }
-
+        } else if (notesOn) {
+            //notes
+        } else if (weatherAppOn);
     }
 
     private void paintStartupScreen(Graphics g)
@@ -131,7 +137,11 @@ public class DrawAppInterface extends JPanel implements MouseListener {
                         String appName = homescreen.getAppIcons().get(i).getName();
                         if (!appName.equals("exit")) {
                             LOGGER.log(Level.INFO, appName + " opened");
-                            //TODO: open app
+                            if (appName.equals("Calculator")) {
+                                calculatorOn = true;
+                            } else if (appName.equals("Weather")) {
+                                weatherAppOn = true;
+                            }
                         } else {
                             LOGGER.log(Level.INFO, "User initiated system shutdown");
                             System.exit(0);
