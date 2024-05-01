@@ -48,7 +48,7 @@ public class ProgressBarThread implements Runnable {
             progressBar.setValue(100);
         }*/
 
-        progressBar.setValue(100);
+        progressBar.setValue(100000);
         try {
             Thread.sleep(1000);
         } catch (Exception e){};

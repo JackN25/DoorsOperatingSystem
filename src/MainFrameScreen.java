@@ -15,7 +15,7 @@ public class MainFrameScreen extends JFrame implements Runnable {
         //force fullscreen
         //this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setResizable(true);
-        //outside border with close, max, and min
+        //outside border with close, max, and min buttons   true = hide
         this.setUndecorated(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(frameWidth, frameHeight);

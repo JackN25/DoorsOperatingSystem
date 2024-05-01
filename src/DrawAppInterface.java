@@ -88,7 +88,9 @@ public class DrawAppInterface extends JPanel implements MouseListener {
             }
         } else if (notesOn) {
             //notes
-        } else if (weatherAppOn);
+        } else if (weatherAppOn){
+            //weather
+        }
     }
 
     private void paintStartupScreen(Graphics g)

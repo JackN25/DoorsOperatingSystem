@@ -1,11 +1,12 @@
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class AppIcon {
+public class AppIcon extends JInternalFrame {
     private BufferedImage icon;
     private String name;
     private Rectangle bounds;
