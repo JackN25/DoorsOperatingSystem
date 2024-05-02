@@ -3,36 +3,24 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class AppIcon extends JInternalFrame {
+public class App extends JInternalFrame {
     private BufferedImage icon;
     private String name;
     private Rectangle bounds;
     private boolean highlighted;
 
-    public AppIcon(String name) {
+    public App(String name) {
         this.name = name;
-        readImage();
     }
 
-    private void readImage() {
-        try {
-            icon = ImageIO.read(new File("images/" + name + ".png"));
-            this.bounds = new Rectangle(-100, -100, icon.getWidth(), icon.getHeight());
-        } catch (IOException e) {
-            try {
-                icon = ImageIO.read(new File("images/placeholder.png"));
-                this.bounds = new Rectangle(-100, -100, icon.getWidth(), icon.getHeight());
-            } catch (IOException exception) {
-                System.err.println("Error while retrieving file for " + name);
-            }
-        }
-    }
 
     public BufferedImage getIcon() {
         return icon;
+    }
+    public void setIcon(BufferedImage icon) {
+        this.icon = icon;
     }
 
     public String getName() {
@@ -55,4 +43,9 @@ public class AppIcon extends JInternalFrame {
     public void changeHighlighted() {
         highlighted = !highlighted;
     }
+
+    public void setBounds(int width, int height) {
+        bounds = new Rectangle(-100, -100, width, height);
+    }
+
 }

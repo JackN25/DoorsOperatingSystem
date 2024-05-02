@@ -1,8 +1,4 @@
 import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -11,22 +7,22 @@ import java.util.ArrayList;
 public class HomeScreen{
 
     private BufferedImage doorStartup;
-    private ArrayList<AppIcon> apps;
+    private ArrayList<App> apps;
 
     public HomeScreen() {
         doorStartup = readDoorImage();
-        apps = new ArrayList<AppIcon>();
-        apps.add(new AppIcon("Calculator"));
+        apps = new ArrayList<App>();
+        apps.add(new App("Calculator"));
         apps.add(new NotesApp());
         apps.add(new WeatherApp());
-        apps.add(new AppIcon("random1"));
-        apps.add(new AppIcon("random2"));
-        apps.add(new AppIcon("random3"));
-        apps.add(new AppIcon("random4"));
-        apps.add(new AppIcon("random5"));
-        apps.add(new AppIcon("random6"));
-        apps.add(new AppIcon("random7"));
-        apps.add(new AppIcon("exit"));
+        apps.add(new App("random1"));
+        apps.add(new App("random2"));
+        apps.add(new App("random3"));
+        apps.add(new App("random4"));
+        apps.add(new App("random5"));
+        apps.add(new App("random6"));
+        apps.add(new App("random7"));
+        apps.add(new App("exit"));
 
     }
 
@@ -47,7 +43,7 @@ public class HomeScreen{
         }
     }
 
-    public ArrayList<AppIcon> getAppIcons() {
+    public ArrayList<App> getAppIcons() {
         return apps;
     }
 }

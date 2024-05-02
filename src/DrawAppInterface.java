@@ -60,7 +60,7 @@ public class DrawAppInterface extends JPanel implements MouseListener {
             g.setColor(Color.WHITE);
             g.fillRect(0, super.getHeight() - 50, super.getWidth(), 50);
             g.setColor(Color.BLACK);
-            for (AppIcon icon : homescreen.getAppIcons()) {
+            for (App icon : homescreen.getAppIcons()) {
                 if (!icon.getName().equals("exit")) {
                     if (y < super.getHeight() - 200) {
                         if (icon.isHighlighted()) {
