@@ -15,6 +15,11 @@ public class App extends JInternalFrame {
         this.name = name;
     }
 
+    public App(String name, String iconName) {
+        this.name = name;
+        readImage(iconName);
+    }
+
 
     public BufferedImage getIcon() {
         return icon;
@@ -35,6 +40,14 @@ public class App extends JInternalFrame {
         bounds.setLocation(x,y);
     }
 
+    private void readImage(String iconName) {
+        try {
+            icon = ImageIO.read(new File("images/" + iconName + ".png"));
+            setBounds(icon.getWidth(), icon.getHeight());
+        } catch (IOException exception) {
+            System.err.println("Error while retrieving file for placeholder image");
+        }
+    }
 
     public boolean isHighlighted() {
         return highlighted;
