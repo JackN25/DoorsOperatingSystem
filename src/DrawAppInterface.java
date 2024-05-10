@@ -53,8 +53,7 @@ public class DrawAppInterface extends JPanel implements MouseListener {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            changeHomeScreenStatus();
-        } else if (homescreenOn) {
+        } else{
             int x = 10;
             int y = 10;
             g.setColor(Color.WHITE);
@@ -86,10 +85,6 @@ public class DrawAppInterface extends JPanel implements MouseListener {
                     icon.setIconBoxLocation(0, super.getHeight() - 50);
                 }
             }
-        } else if (notesOn) {
-            //notes
-        } else if (weatherAppOn){
-            //weather
         }
     }
 
@@ -123,8 +118,6 @@ public class DrawAppInterface extends JPanel implements MouseListener {
         Point clicked = e.getPoint();
 
         if (e.getButton() == 1) {
-            //ON THE HOME SCREEN
-            if(homescreenOn) {
                 //loop through all apps on home screen
                 for (int i = 0; i < homescreen.getAppIcons().size(); i++) {
                     Rectangle box = homescreen.getAppIcons().get(i).getBounds();
@@ -155,7 +148,6 @@ public class DrawAppInterface extends JPanel implements MouseListener {
                     }
                 }
             }
-        }
     }
 
     @Override

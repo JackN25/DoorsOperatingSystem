@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class App extends JInternalFrame {
+public class App extends JFrame {
     private BufferedImage icon;
     private String name;
     private Rectangle bounds;
