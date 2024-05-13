@@ -15,7 +15,7 @@ public class HomeScreen{
         apps.add(new App("exit", "exit"));
         apps.add(new NotesApp());
         apps.add(new WeatherApp());
-        apps.add(new App("random1", "placeholder"));
+        apps.add(new CalculatorApp());
         apps.add(new App("random2", "placeholder"));
         apps.add(new App("random3", "placeholder"));
         apps.add(new App("random4", "placeholder"));
