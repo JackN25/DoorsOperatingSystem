@@ -12,16 +12,10 @@ public class HomeScreen{
     public HomeScreen() {
         doorStartup = readDoorImage();
         apps = new ArrayList<App>();
-        apps.add(new App("exit", "exit"));
-        apps.add(new NotesApp());
-        apps.add(new WeatherApp());
-        apps.add(new CalculatorApp());
-        apps.add(new App("random2", "placeholder"));
-        apps.add(new App("random3", "placeholder"));
-        apps.add(new App("random4", "placeholder"));
-        apps.add(new App("random5", "placeholder"));
-        apps.add(new App("random6", "placeholder"));
-        apps.add(new App("random7", "placeholder"));
+        apps.add(new App("exit"));
+        apps.add(new App("Notes"));
+        apps.add(new App("Weather"));
+        apps.add(new App("Calculator"));
     }
 
 

@@ -9,18 +9,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DrawAppInterface extends JPanel implements MouseListener {
-
     private HomeScreen homescreen = new HomeScreen();
     private JProgressBar progressBar;
     private ProgressBarThread progressBarThread;
     private boolean startup = true;
     private boolean displayStartupWords = true;
     private boolean wordsDisplayed = false;
-    private NotesApp notesApp = new NotesApp();
-    private boolean notesOn = false;
-    private boolean calculatorOn = false;
-    private WeatherApp weatherApp = new WeatherApp();
-    private boolean weatherAppOn = false;
     Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
 
@@ -131,14 +125,14 @@ public class DrawAppInterface extends JPanel implements MouseListener {
                         if (!appName.equals("exit")) {
                             LOGGER.log(Level.INFO, appName + " opened");
                             if (appName.equals("Calculator")) {
-                                calculatorOn = true;
+                                //TODO: Run Calc
                             } else if (appName.equals("Weather")) {
-                                weatherAppOn = true;
+                                //TODO: Run Weather
                             }
                             if (appName.equals("Notes")) {
                                 for (App app : homescreen.getApps()) {
-                                    if (app instanceof NotesApp) {
-                                        ((NotesApp) app).run();
+                                    if (app.getName().equals("Notes")) {
+                                        app.runApp();
                                     }
                                 }
                             }

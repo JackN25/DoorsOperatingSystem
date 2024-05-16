@@ -5,21 +5,55 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class App extends JFrame {
+public class App extends JFrame implements Runnable {
     private BufferedImage icon;
     private String name;
     private Rectangle bounds;
     private boolean highlighted;
+    private JPanel appDrawer;
+    private Thread appThread;
+    private boolean isRunning;
 
     public App(String name) {
+        super(name);
         this.name = name;
+        readImage(name);
+        isRunning = false;
+        if (name.equals("Notes")) {
+            appDrawer = new NotesAppInterface();
+        } else if (name.equals("Weather")) {
+            //TODO: Make weather app interface and calculator app interface
+        }
     }
 
-    public App(String name, String iconName) {
-        this.name = name;
-        readImage(iconName);
+    public void runApp() {
+        int width = 500;
+        int height = 500;
+        this.add(appDrawer);
+        //force fullscreen
+        //this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.setResizable(true);
+        //outside border with close, max, and min buttons   true = hide
+        this.setUndecorated(false);
+        this.setSize(width, height);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setLocation(0, 0);
+        this.setVisible(true);
+        startThread();
     }
 
+    public void startThread() {
+        appThread = new Thread(this);
+        appThread.start();
+        isRunning = true;
+    }
+
+    @Override
+    public void run() {
+        while (isRunning) {
+            appDrawer.repaint();
+        }
+    }
 
     public BufferedImage getIcon() {
         return icon;
