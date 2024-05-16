@@ -16,7 +16,6 @@ public class DrawAppInterface extends JPanel implements MouseListener {
     private boolean startup = true;
     private boolean displayStartupWords = true;
     private boolean wordsDisplayed = false;
-    private boolean homescreenOn = false;
     private NotesApp notesApp = new NotesApp();
     private boolean notesOn = false;
     private boolean calculatorOn = false;
@@ -49,7 +48,7 @@ public class DrawAppInterface extends JPanel implements MouseListener {
         } else if (wordsDisplayed) {
             wordsDisplayed = false;
             try {
-                Thread.sleep(3000);
+                Thread.sleep(3);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -59,7 +58,7 @@ public class DrawAppInterface extends JPanel implements MouseListener {
             g.setColor(Color.WHITE);
             g.fillRect(0, super.getHeight() - 50, super.getWidth(), 50);
             g.setColor(Color.BLACK);
-            for (App icon : homescreen.getAppIcons()) {
+            for (App icon : homescreen.getApps()) {
                 if (!icon.getName().equals("exit")) {
                     if (y < super.getHeight() - 200) {
                         if (icon.isHighlighted()) {
@@ -119,17 +118,16 @@ public class DrawAppInterface extends JPanel implements MouseListener {
 
         if (e.getButton() == 1) {
                 //loop through all apps on home screen
-                for (int i = 0; i < homescreen.getAppIcons().size(); i++) {
-                    Rectangle box = homescreen.getAppIcons().get(i).getBounds();
+                for (int i = 0; i < homescreen.getApps().size(); i++) {
+                    Rectangle box = homescreen.getApps().get(i).getBounds();
                     //if app clicked but not highlighted, change the highlight status
-                    if (box.contains(clicked) && !homescreen.getAppIcons().get(i).isHighlighted()) {
-                        homescreen.getAppIcons().get(i).changeHighlighted();
+                    if (box.contains(clicked) && !homescreen.getApps().get(i).isHighlighted()) {
+                        homescreen.getApps().get(i).changeHighlighted();
                     }
                     //if app clicked is highlighted, change the highlight status, close home screen, open the app
-                    else if (box.contains(clicked) && homescreen.getAppIcons().get(i).isHighlighted()) {
-                        homescreen.getAppIcons().get(i).changeHighlighted();
-                        changeHomeScreenStatus();
-                        String appName = homescreen.getAppIcons().get(i).getName();
+                    else if (box.contains(clicked) && homescreen.getApps().get(i).isHighlighted()) {
+                        homescreen.getApps().get(i).changeHighlighted();
+                        String appName = homescreen.getApps().get(i).getName();
                         if (!appName.equals("exit")) {
                             LOGGER.log(Level.INFO, appName + " opened");
                             if (appName.equals("Calculator")) {
@@ -137,14 +135,21 @@ public class DrawAppInterface extends JPanel implements MouseListener {
                             } else if (appName.equals("Weather")) {
                                 weatherAppOn = true;
                             }
+                            if (appName.equals("Notes")) {
+                                for (App app : homescreen.getApps()) {
+                                    if (app instanceof NotesApp) {
+                                        ((NotesApp) app).run();
+                                    }
+                                }
+                            }
                         } else {
                             LOGGER.log(Level.INFO, "User initiated system shutdown");
                             System.exit(0);
                         }
                     }
                     //if app is not clicked and is highlighted, change highlight status
-                    else if (homescreen.getAppIcons().get(i).isHighlighted()){
-                        homescreen.getAppIcons().get(i).changeHighlighted();
+                    else if (homescreen.getApps().get(i).isHighlighted()){
+                        homescreen.getApps().get(i).changeHighlighted();
                     }
                 }
             }
@@ -163,14 +168,5 @@ public class DrawAppInterface extends JPanel implements MouseListener {
     @Override
     public void mouseExited(MouseEvent e) {
 
-    }
-
-    private void changeHomeScreenStatus() {
-        homescreenOn = !homescreenOn;
-        if (homescreenOn) {
-            LOGGER.log(Level.INFO, "Home screen turned on");
-        } else {
-            LOGGER.log(Level.INFO, "Home screen turned off");
-        }
     }
 }

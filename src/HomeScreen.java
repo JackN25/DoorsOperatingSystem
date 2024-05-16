@@ -41,7 +41,7 @@ public class HomeScreen{
         }
     }
 
-    public ArrayList<App> getAppIcons() {
+    public ArrayList<App> getApps() {
         return apps;
     }
 }
