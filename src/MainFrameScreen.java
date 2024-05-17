@@ -22,6 +22,7 @@ public class MainFrameScreen extends JFrame implements Runnable {
         this.setLocation(0, 0);
         this.setVisible(true);
         startThread();
+        System.out.println(getGraphics());
     }
 
     public void startThread() {

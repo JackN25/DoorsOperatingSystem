@@ -8,14 +8,15 @@ import java.awt.event.MouseListener;
 public class NotesAppInterface extends JPanel implements MouseListener, KeyListener {
 
     public NotesAppInterface() {
+        this.addMouseListener(this);
+        this.addKeyListener(this);
 
     }
 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawString("test", 100, 100);
+        System.out.println("notes test");
     }
-
 
 
 

@@ -17,6 +17,7 @@ public class DrawAppInterface extends JPanel implements MouseListener {
     private boolean wordsDisplayed = false;
     Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
+    boolean notesAppOn = false;
 
     public DrawAppInterface() {
         this.addMouseListener(this);
@@ -133,6 +134,7 @@ public class DrawAppInterface extends JPanel implements MouseListener {
                                 for (App app : homescreen.getApps()) {
                                     if (app.getName().equals("Notes")) {
                                         app.runApp();
+                                        notesAppOn = true;
                                     }
                                 }
                             }
