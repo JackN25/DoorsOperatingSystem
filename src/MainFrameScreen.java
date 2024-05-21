@@ -17,7 +17,7 @@ public class MainFrameScreen extends JFrame implements Runnable {
         this.setResizable(true);
         //outside border with close, max, and min buttons   true = hide
         this.setUndecorated(false);
-        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(frameWidth, frameHeight);
         this.setLocation(0, 0);
         this.setVisible(true);
