@@ -8,6 +8,17 @@ public class MainFrameScreen extends JFrame implements Runnable {
     private boolean systemOn = true;
     public MainFrameScreen(String display) {
         super(display);
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (InstantiationException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        } catch (UnsupportedLookAndFeelException e) {
+            throw new RuntimeException(e);
+        }
         int frameWidth = 1920;
         int frameHeight = 1080;
         appShower = new DrawAppInterface();
