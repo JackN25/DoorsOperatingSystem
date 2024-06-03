@@ -26,7 +26,6 @@ public class App {
             if (appFrame == null) {
                 appFrame = new NotesAppInterface();
             }
-
         } else if (name.equals("Weather")) {
             //TODO: Make weather app interface and calculator app interface
         }
