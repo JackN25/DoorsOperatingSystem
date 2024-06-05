@@ -5,12 +5,14 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class NotesAppInterface extends JFrame implements ActionListener {
     Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-
+    private File folder = new File("savedNotes");
+    private ArrayList<Notes> allNotes = new ArrayList<Notes>();
     private JMenu menu1;
     private JMenu menu2;
     private JMenuBar menuBar;
@@ -68,23 +70,48 @@ public class NotesAppInterface extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String s = e.getActionCommand();
         LOGGER.log(Level.INFO, s);
-        if (s.equals("Save current file")) {
-            saveFile();
+        if (s.equals("Save current file") && currentFileName == null) {
+            String name = JOptionPane.showInputDialog("Name this note: ");
+            if (name != null) {
+                File f = new File("savedNotes/" + name);
+                if (!allNotes.contains(f)) {
+                    saveFile(f);
+                    JOptionPane.showMessageDialog(null, "Note saved!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "There is already a note with this name!");
+                }
+            }
+        }
+        if (s.equals("Load existing file")) {
+
         }
 
     }
 
-    private void saveFile() {
+    private void saveFile(File f) {
         if (currentFileName == null) {
             try {
-                File f = new File("savedNotes/test");
                 f.createNewFile();
-                FileWriter writer = new FileWriter("savedNotes/test");
+                FileWriter writer = new FileWriter(f);
                 writer.write(textArea.getText());
                 writer.close();
                 LOGGER.log(Level.INFO, "Created and wrote to new file");
             } catch (IOException e) {
                 LOGGER.log(Level.INFO, "Error while creating new file");
+            }
+        }
+    }
+
+    private void showAllNotes() {
+        getAllNotes(folder);
+
+    }
+
+    private void getAllNotes(File folder) {
+        for (File f : folder.listFiles()) {
+            Notes saved = new Notes(f.getName(), f.getPath());
+            if (!allNotes.contains(saved)) {
+                allNotes.add(saved);
             }
         }
     }
