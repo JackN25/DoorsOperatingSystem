@@ -13,10 +13,10 @@ public class MainFrameScreen extends JFrame implements Runnable {
         appShower = new DrawAppInterface();
         this.add(appShower);
         //force fullscreen
-        //this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setResizable(true);
         //outside border with close, max, and min buttons   true = hide
-        this.setUndecorated(false);
+        this.setUndecorated(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(frameWidth, frameHeight);
         this.setLocation(0, 0);

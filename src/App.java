@@ -10,10 +10,10 @@ public class App {
     private String name;
     private Rectangle bounds;
     private boolean highlighted;
-    private JPanel appDrawer;
     private Thread appThread;
     private boolean isRunning;
-    private JFrame appFrame;
+    private JFrame notesAppFrame;
+    private JFrame weatherAppFrame;
 
     public App(String name) {
         this.name = name;
@@ -23,11 +23,16 @@ public class App {
 
     public void runApp() {
         if (name.equals("Notes")) {
-            if (appFrame == null) {
-                appFrame = new NotesAppInterface();
+            if (notesAppFrame == null || !notesAppFrame.isDisplayable()) {
+                notesAppFrame = new NotesAppInterface();
             }
-        } else if (name.equals("Weather")) {
-            //TODO: Make weather app interface and calculator app interface
+        } else if (name.equals("Weather") || !weatherAppFrame.isDisplayable()) {
+            if (weatherAppFrame == null) {
+                weatherAppFrame = new WeatherAppInterface();
+            }
+        } else if (name.equals("Calcualtor")) {
+            //TODO: Make calculator app
+            JOptionPane.showMessageDialog(null, "Calculator App is currently not supported. Check back in the future for updates!");
         }
     }
 

@@ -1,11 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.*;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.StringReader;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,6 +32,7 @@ public class NotesAppInterface extends JFrame implements ActionListener {
     public NotesAppInterface() {
         super("Notes");
         this.setLayout(new BorderLayout());
+        this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setSize(500,500);
         this.setLocation(100,100);
@@ -77,13 +80,52 @@ public class NotesAppInterface extends JFrame implements ActionListener {
                 if (!allNotes.contains(f)) {
                     saveFile(f);
                     JOptionPane.showMessageDialog(null, "Note saved!");
+                    currentFileName = name;
                 } else {
                     JOptionPane.showMessageDialog(null, "There is already a note with this name!");
                 }
             }
+        } else if (s.equals("Save current file")) {
+            File f = new File("savedNotes/" + currentFileName);
+            updateFile(f);
+            JOptionPane.showMessageDialog(null, "Updated the note(The note will be updated when you restart the system)!");
         }
         if (s.equals("Load existing file")) {
+            showAllNotes();
+        }
+        if (s.equals("Copy")) {
+            StringSelection stringSelection = new StringSelection (textArea.getText());
+            Clipboard clpbrd = Toolkit.getDefaultToolkit ().getSystemClipboard ();
+            clpbrd.setContents (stringSelection, null);
+        }
+        if (s.equals("Paste")) {
+            try {
+                textArea.setText(textArea.getText() + (String) Toolkit.getDefaultToolkit()
+                        .getSystemClipboard().getData(DataFlavor.stringFlavor));
+            } catch (UnsupportedFlavorException | IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+        if (s.equals("Select All")) {
+            textArea.requestFocusInWindow();
+            textArea.selectAll();
+        }
+        if (s.equals("Word Count")) {
+            String text = textArea.getText();
+            String[] words = text.trim().split("\\s+");
+            int wordCount = words.length;
+            JOptionPane.showMessageDialog(null, "Number of words: " + wordCount);
+        }
 
+    }
+
+    private void updateFile(File f) {
+        try {
+            FileWriter fileWriter = new FileWriter(f, false);
+            fileWriter.write(textArea.getText());
+            fileWriter.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
     }
@@ -104,7 +146,22 @@ public class NotesAppInterface extends JFrame implements ActionListener {
 
     private void showAllNotes() {
         getAllNotes(folder);
-
+        JFrame savedNotesShower = new JFrame("Load an existing file");
+        savedNotesShower.setVisible(true);
+        savedNotesShower.setLayout(new FlowLayout());
+        for (Notes n : allNotes) {
+            Button b = new Button(n.getName());
+            b.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    setTextToLoad(n.getContent(), n.getName());
+                    savedNotesShower.setVisible(false);
+                    JOptionPane.showMessageDialog(null, "Loaded: " + n.getName());
+                }
+            });
+            savedNotesShower.add(b);
+        }
+        savedNotesShower.pack();
     }
 
     private void getAllNotes(File folder) {
@@ -114,5 +171,10 @@ public class NotesAppInterface extends JFrame implements ActionListener {
                 allNotes.add(saved);
             }
         }
+    }
+
+    private void setTextToLoad(String text, String name) {
+        textArea.setText(text);
+        currentFileName = name;
     }
 }

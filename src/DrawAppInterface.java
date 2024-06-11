@@ -6,7 +6,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.nio.BufferOverflowException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -130,7 +130,7 @@ public class DrawAppInterface extends JPanel implements MouseListener {
                             if (appName.equals("Calculator")) {
                                 //TODO: Run Calc
                             } else if (appName.equals("Weather")) {
-                                //TODO: Run Weather
+                                apps[2].runApp();
                             }
                             if (appName.equals("Notes")) {
                                 apps[1].runApp();
@@ -147,6 +147,7 @@ public class DrawAppInterface extends JPanel implements MouseListener {
                 }
             }
     }
+
 
     @Override
     public void mouseReleased(MouseEvent e) {

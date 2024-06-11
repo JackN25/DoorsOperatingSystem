@@ -3,6 +3,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Notes {
     private String name;
@@ -12,12 +15,12 @@ public class Notes {
     public Notes(String name, String path) {
         this.name = name;
         this.path = path;
+        readFile();
     }
 
     private void readFile() {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(path));
-
+            content = new String(Files.readAllBytes(Paths.get(path)));
         } catch (IOException e) {
 
         }
