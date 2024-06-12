@@ -19,7 +19,7 @@ public class ProgressBarThread implements Runnable {
 
     @Override
     public void run() {
-        /*
+
         while (progressBar.getValue() < 100) {
             while (progressBar.getValue() < 20) {
                 progressBar.setValue(progressBar.getValue() + 1);
@@ -46,9 +46,8 @@ public class ProgressBarThread implements Runnable {
                 progressBar.setValue(progressBar.getValue() + 5);
             }
             progressBar.setValue(100);
-        }*/
-
-        progressBar.setValue(100000);
+        }
+        //sleep before interrupt to make sure the interrupt command goes through
         try {
             Thread.sleep(1000);
         } catch (Exception e){};

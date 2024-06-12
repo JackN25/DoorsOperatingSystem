@@ -38,6 +38,7 @@ public class Notes {
         return path;
     }
 
+    @Override
     public boolean equals(Object object) {
         boolean result = false;
         if (object == null || object.getClass() != getClass()) {

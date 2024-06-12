@@ -1,16 +1,14 @@
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.MouseListener;
 
 public class MainFrameScreen extends JFrame implements Runnable {
-    private DrawAppInterface appShower;
+    private DesktopDrawer appShower;
     private Thread windowThread;
     private boolean systemOn = true;
     public MainFrameScreen(String display) {
         super(display);
         int frameWidth = 1920;
         int frameHeight = 1080;
-        appShower = new DrawAppInterface();
+        appShower = new DesktopDrawer();
         this.add(appShower);
         //force fullscreen
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);

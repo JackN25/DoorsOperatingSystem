@@ -10,15 +10,12 @@ public class App {
     private String name;
     private Rectangle bounds;
     private boolean highlighted;
-    private Thread appThread;
-    private boolean isRunning;
     private JFrame notesAppFrame;
     private JFrame weatherAppFrame;
 
     public App(String name) {
         this.name = name;
         readImage(name);
-        isRunning = false;
     }
 
     public void runApp() {

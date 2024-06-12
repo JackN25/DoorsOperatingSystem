@@ -6,11 +6,10 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class DrawAppInterface extends JPanel implements MouseListener {
+public class DesktopDrawer extends JPanel implements MouseListener {
     private JProgressBar progressBar;
     private ProgressBarThread progressBarThread;
     private boolean startup = true;
@@ -20,7 +19,7 @@ public class DrawAppInterface extends JPanel implements MouseListener {
 
     private App[] apps = {new App("exit"), new App("Notes"), new App("Weather"), new App("Calculator")};
 
-    public DrawAppInterface() {
+    public DesktopDrawer() {
         this.addMouseListener(this);
     }
 
@@ -49,7 +48,7 @@ public class DrawAppInterface extends JPanel implements MouseListener {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-        } else{
+        } else{ //draw taskbar and apps
             int x = 10;
             int y = 10;
             g.fillRect(0, super.getHeight() - 50, super.getWidth(), 50);
